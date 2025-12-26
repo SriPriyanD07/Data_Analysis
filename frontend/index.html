@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Notebook Generator</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-section">
+                <div class="logo-icon">🤖</div>
+                <div>
+                    <h1 class="main-title">Agentic Notebook Generator</h1>
+                    <p class="subtitle">AI-Driven Data Science Automation</p>
+                </div>
+            </div>
+            <div class="phase-badge">Phase 1: MVP</div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section class="card upload-section">
+                <h2 class="section-title">
+                    <span class="icon">📊</span>
+                    Generate Your Notebook
+                </h2>
+
+                <form id="uploadForm" class="upload-form">
+                    <!-- File Upload -->
+                    <div class="form-group">
+                        <label for="fileInput" class="form-label">
+                            <span class="icon">📁</span>
+                            Upload Dataset (CSV)
+                        </label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="fileInput" name="file" accept=".csv" required class="file-input">
+                            <div class="file-upload-display" id="fileUploadDisplay">
+                                <span class="upload-icon">⬆️</span>
+                                <span class="upload-text">Choose a CSV file or drag it here</span>
+                                <span class="upload-hint">Maximum file size: 50MB</span>
+                            </div>
+                        </div>
+                        <div class="file-info" id="fileInfo"></div>
+                    </div>
+
+                    <!-- Task Description -->
+                    <div class="form-group">
+                        <label for="taskInput" class="form-label">
+                            <span class="icon">✍️</span>
+                            Describe Your Analysis Task
+                        </label>
+                        <textarea id="taskInput" name="task_description" required class="task-input"
+                            placeholder="Example: Perform exploratory data analysis on this dataset, analyze distributions, find correlations, and identify any data quality issues."
+                            rows="4"></textarea>
+                        <div class="input-hint">
+                            💡 Be specific about what you want to analyze (e.g., specific columns, types of
+                            visualizations)
+                        </div>
+                    </div>
+
+                    <!-- Generate Button -->
+                    <button type="submit" class="btn-primary" id="generateBtn">
+                        <span class="btn-icon">🚀</span>
+                        <span class="btn-text">Generate Notebook</span>
+                    </button>
+                </form>
+
+                <!-- Progress Section -->
+                <div class="progress-section" id="progressSection" style="display: none;">
+                    <div class="progress-header">
+                        <span class="icon">⚙️</span>
+                        <span>Generating your notebook...</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-status" id="progressStatus">Initializing...</div>
+                </div>
+
+                <!-- Result Section -->
+                <div class="result-section" id="resultSection" style="display: none;">
+                    <div class="result-success">
+                        <span class="icon success-icon">✅</span>
+                        <div>
+                            <h3 class="result-title">Notebook Generated Successfully!</h3>
+                            <p class="result-message" id="resultMessage"></p>
+                        </div>
+                    </div>
+                    <div class="result-actions">
+                        <a href="#" id="downloadLink" class="btn-secondary" download>
+                            <span class="icon">⬇️</span>
+                            Download Notebook
+                        </a>
+                        <button class="btn-outline" onclick="location.reload()">
+                            <span class="icon">🔄</span>
+                            Generate Another
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Error Section -->
+                <div class="error-section" id="errorSection" style="display: none;">
+                    <div class="error-content">
+                        <span class="icon error-icon">❌</span>
+                        <div>
+                            <h3 class="error-title">Generation Failed</h3>
+                            <p class="error-message" id="errorMessage"></p>
+                        </div>
+                    </div>
+                    <button class="btn-outline" onclick="location.reload()">
+                        <span class="icon">🔄</span>
+                        Try Again
+                    </button>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Intent-Driven</h3>
+                    <p class="feature-description">Describe your analysis goals in natural language</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3 class="feature-title">Comprehensive EDA</h3>
+                    <p class="feature-description">Automatic data profiling, visualizations & insights</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📓</div>
+                    <h3 class="feature-title">Executable Notebooks</h3>
+                    <p class="feature-description">Ready-to-run Google Colab compatible notebooks</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">AI-Powered</h3>
+                    <p class="feature-description">GPT-4 generates optimized analysis code</p>
+                </div>
+            </section>
+
+            <!-- Recent Notebooks -->
+            <section class="card recent-section">
+                <h2 class="section-title">
+                    <span class="icon">📚</span>
+                    Recently Generated Notebooks
+                </h2>
+                <div class="notebooks-list" id="notebooksList">
+                    <div class="empty-state">
+                        <span class="icon">📭</span>
+                        <p>No notebooks generated yet. Create your first one above!</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Agentic Notebook Generator v1.0.0 - Phase 1: MVP</p>
+            <p class="footer-subtext">Powered by GPT-4 • Built for Data Scientists</p>
+        </footer>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
